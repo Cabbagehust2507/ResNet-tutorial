@@ -3,6 +3,22 @@ import tensorflow as tf
 
 
 class Residual(tf.keras.Model):
+    """
+    Residual block architecture:
+                    X
+                    |----------------
+                  Conv2d            |
+                    |               |   
+                 BatchNorm          |
+                    |               |
+                  RelU              |
+                    |               |
+                  Conv2d            |
+                    |               |
+                BatchNorm           |
+                    |----------------
+                   ReLU
+    """
     def __init__(self, num_channels, use_1x1conv = False, strides =1):
         super().__init__()
         self.conv1 = tf.keras.layer.Conv2D(num_channels, padding = 'same', 

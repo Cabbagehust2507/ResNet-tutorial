@@ -22,3 +22,10 @@ class DenseBlock(nn.Module):
             Y = blk(X)
             X = torch.cat((X, Y), dim=1)
         return X
+
+def transition_block(input_channels, num_channels):
+    return nn.Sequential(
+        nn.BatchNorm2d(input_channels), nn.ReLU(),
+        nn.Conv2d(input_channels, num_channels, kernel_size=1),
+        nn.AvgPool2d(kernel_size=2, stride=2)
+    )
